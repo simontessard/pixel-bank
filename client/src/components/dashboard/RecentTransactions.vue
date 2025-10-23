@@ -39,7 +39,7 @@
         <div class="text-right">
           <p
             class="font-medium font-numbers tracking-tight"
-            :class="transaction.type === 'INCOME' ? 'text-green-600' : 'text-red-600'"
+            :class="transaction.type === 'INCOME' ? 'text-emerald-600' : 'text-red-700'"
           >
             {{ transaction.type === 'INCOME' ? '+' : '-' }}{{ formatAmount(transaction.amount) }}€
           </p>

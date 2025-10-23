@@ -3,7 +3,7 @@
     <div class="relative group w-40">
       <div class="flex justify-between items-center bg-gray-100 p-2 rounded-full cursor-pointer">
         <div class="flex items-center gap-2.5">
-          <div class="size-6 bg-gradient-to-br from-lime-200 via-green-400 to-emerald-600 rounded-full"></div>
+          <img src="/profile.jpg" alt="Image de profil" class="size-6 md:size-7 object-cover rounded-full"></img>
           <span class="text-sm text-gray-700">
              {{ authStore.user?.firstName }}
           </span>

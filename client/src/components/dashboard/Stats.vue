@@ -52,7 +52,7 @@ const cards = computed(() => [
     label: 'Revenus totaux',
     formatted: formatted.value.income,
     prefix: '+',
-    class: 'text-green-600',
+    class: 'text-emerald-600',
     aria: 'Revenus totaux',
   },
   {
@@ -60,7 +60,7 @@ const cards = computed(() => [
     label: 'Dépenses totales',
     formatted: formatted.value.expense,
     prefix: '-',
-    class: 'text-red-600',
+    class: 'text-red-700',
     aria: 'Dépenses totales',
   }
 ]);

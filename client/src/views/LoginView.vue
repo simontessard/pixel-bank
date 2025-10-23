@@ -1,11 +1,13 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-lime-200 via-green-400 to-emerald-600 flex items-center justify-end">
+  <div class="min-h-screen flex items-center justify-end">
+
+    <WelcomeScreen/>
 
     <div class="min-h-screen flex flex-col items-center justify-center bg-white w-full lg:w-1/2 p-8">
 
       <div class="max-w-lg w-full">
 
-        <h1 class="text-2xl md:text-3xl font-bold text-gray-800 mb-6 md:mb-8">
+        <h1 class="text-2xl md:text-3xl xl:text-4xl font-medium mb-6 md:mb-8">
           Connexion
         </h1>
 
@@ -14,18 +16,18 @@
           <div class="mb-8">
 
             <div class="mb-4">
-              <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+              <label class="block text-sm font-medium mb-2">Email</label>
               <input
                 v-model="email"
                 type="email"
                 required
-                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition"
+                class="w-full px-4 py-3 border border-gray-300 placeholder:text-black/35 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition"
                 placeholder="votre@email.com"
               />
             </div>
 
             <div class="mb-4">
-              <label class="block text-sm font-medium text-gray-700 mb-2">Mot de passe</label>
+              <label class="block text-sm font-medium mb-2">Mot de passe</label>
               <input
                 v-model="password"
                 type="password"
@@ -44,15 +46,16 @@
           <button
             type="submit"
             :disabled="loading"
-            class="w-full bg-black md:hover:bg-green-600 text-white cursor-pointer font-semibold py-3 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
+            class="w-full bg-emerald-500 md:hover:bg-black text-white cursor-pointer font-semibold py-3 rounded-lg transition-colors duration-500
+            disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {{ loading ? 'Connexion...' : 'Se connecter' }}
           </button>
         </form>
 
-        <p class="text-gray-600 text-sm mt-4">
+        <p class="text-center text-gray-600 text-sm mt-4">
           Pas encore de compte ?
-          <router-link to="/register" class="text-green-600 md:hover:text-green-600 font-semibold">
+          <router-link to="/register" class="text-emerald-500 md:hover:text-green-600 font-semibold">
             S'inscrire
           </router-link>
         </p>
@@ -67,6 +70,7 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/auth';
+import WelcomeScreen from "@/components/common/WelcomeScreen.vue";
 
 const router = useRouter();
 const authStore = useAuthStore();
