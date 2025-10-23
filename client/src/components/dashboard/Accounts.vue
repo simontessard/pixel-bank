@@ -18,7 +18,7 @@
         </span>
       </div>
       <p class="text-2xl md:text-3xl font-bold text-gray-900">
-        {{ formatAmount(account.balance) }} €
+        {{ formatAmount(account.balance) }}€
       </p>
       <p class="text-xs md:text-sm text-gray-500 mt-1">
         {{ account._count?.transactions || 0 }} transactions

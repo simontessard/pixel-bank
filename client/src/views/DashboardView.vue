@@ -20,8 +20,17 @@
       <!-- Statistiques -->
       <Stats :stats="stats" />
 
-      <!-- Transactions récentes -->
-      <RecentTransactions :transactions="transactions" :limit="3" />
+      <div class="flex gap-4 max-lg:flex-col">
+        <TransactionsPie
+          :transactions="transactions"
+          :topN="8"
+          :typeFilter="null"
+          periodLabel="Derniers 12 mois"
+        />
+
+        <!-- Transactions récentes -->
+        <RecentTransactions :transactions="transactions" :limit="4" />
+      </div>
 
     </div>
   </AppLayout>
@@ -36,6 +45,7 @@ import PageHeader from "@/components/common/PageHeader.vue";
 import Accounts from "@/components/dashboard/Accounts.vue";
 import Stats from "@/components/dashboard/Stats.vue";
 import RecentTransactions from "@/components/dashboard/RecentTransactions.vue";
+import TransactionsPie from "@/components/dashboard/TransactionsPie.vue";
 
 const authStore = useAuthStore();
 

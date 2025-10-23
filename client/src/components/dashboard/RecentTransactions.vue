@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white rounded-2xl shadow-xs p-5 md:p-6 lg:w-1/2">
+   <div class="bg-white rounded-2xl shadow-xs p-5 md:p-6 lg:w-1/2 h-fit">
     <h3 class="text-lg font-bold text-gray-800 mb-4">Transactions récentes</h3>
 
     <div v-if="transactions.length === 0" class="text-center py-8 text-gray-500">
@@ -28,10 +28,10 @@
         </div>
         <div class="text-right">
           <p
-            class="font-bold text-lg"
+            class="font-semibold text-lg"
             :class="transaction.type === 'INCOME' ? 'text-green-600' : 'text-red-600'"
           >
-            {{ transaction.type === 'INCOME' ? '+' : '-' }}{{ formatAmount(transaction.amount) }} €
+            {{ transaction.type === 'INCOME' ? '+' : '-' }}{{ formatAmount(transaction.amount) }}€
           </p>
         </div>
       </div>

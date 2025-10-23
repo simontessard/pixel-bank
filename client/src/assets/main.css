@@ -2,6 +2,6 @@
 
 @layer components {
   .container {
-    @apply px-6 mx-auto md:!max-w-[92rem];
+    @apply px-6 mx-auto md:!max-w-[96rem];
   }
 }

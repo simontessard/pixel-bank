@@ -1,15 +1,15 @@
 <template>
   <AppLayout>
-    <div class="mb-8 flex justify-between items-center">
+    <div class="mb-8 flex max-md:flex-col gap-4 justify-between md:items-center">
       <div>
         <h2 class="text-3xl font-bold text-gray-800">Mes Comptes</h2>
         <p class="text-gray-600 text-sm mt-2">Gérez tous vos comptes bancaires</p>
       </div>
       <button
         @click="showAddAccountModal = true"
-        class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition flex items-center space-x-2"
+        class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 size-fit cursor-pointer text-sm text-white rounded-full font-medium transition flex items-center space-x-2"
       >
-        <span class="text-xl">+</span>
+        <span class="text-lg">+</span>
         <span>Nouveau compte</span>
       </button>
     </div>
@@ -37,13 +37,13 @@
                 {{ account.type === 'CHECKING' ? 'Courant' : 'Épargne' }}
               </span>
             </div>
-            <h3 class="text-2xl font-bold text-gray-800">{{ account.name }}</h3>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-800">{{ account.name }}</h3>
           </div>
         </div>
 
         <div class="mt-6">
           <p class="text-sm text-gray-500 mb-1">Solde actuel</p>
-          <p class="text-4xl font-bold text-gray-900">
+          <p class="text-3xl md:text-4xl font-bold text-gray-900">
             {{ formatAmount(account.balance) }} <span class="text-2xl text-gray-500">€</span>
           </p>
         </div>

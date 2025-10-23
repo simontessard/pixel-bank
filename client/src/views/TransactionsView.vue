@@ -8,13 +8,13 @@
       <div class="flex space-x-3">
         <button
           @click="showTransferModal = true"
-          class="px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-semibold transition"
+          class="px-6 py-2.5 bg-purple-600 hover:bg-purple-700 text-white rounded-full font-medium transition"
         >
           Virement
         </button>
         <button
           @click="showAddTransactionModal = true"
-          class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition"
+          class="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-full font-medium transition"
         >
           + Nouvelle transaction
         </button>
