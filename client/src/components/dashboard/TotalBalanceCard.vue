@@ -1,6 +1,6 @@
 <template>
   <article
-    class="relative flex flex-col justify-center items-center bg-white rounded-3xl overflow-hidden shadow-xs p-5 md:p-6"
+    class="relative border-2 border-emerald-300 flex flex-col justify-center items-center bg-white rounded-3xl overflow-hidden shadow-xs p-5 md:p-6"
     aria-label="Balance totale"
   >
     <div class="absolute w-1/3 h-20 blur-3xl top-4 right-0 bg-gradient-to-br from-lime-200 via-green-400 to-emerald-600 rounded-full"></div>

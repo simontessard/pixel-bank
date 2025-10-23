@@ -13,9 +13,6 @@
           </p>
           <h3 class="text-xl font-medium text-gray-800">{{ account.name }}</h3>
         </div>
-        <span class="px-2 py-1 bg-blue-100 text-blue-600 rounded-lg text-xs font-semibold">
-          {{ account.currency }}
-        </span>
       </div>
       <p class="text-xl md:text-2xl font-semibold font-numbers tracking-tight text-gray-900">
         {{ formatAmount(account.balance) }}€

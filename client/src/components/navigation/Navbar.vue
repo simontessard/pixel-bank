@@ -12,7 +12,7 @@
             v-for="link in navLinks"
             :key="link.path"
             :to="link.path"
-            class="flex items-center gap-2 px-6 py-2.5 text-sm rounded-full text-gray-700 bg-gray-100 transition-colors"
+            class="flex items-center gap-2 px-5 xl:px-6 py-2.5 text-xs xl:text-sm rounded-full text-gray-700 bg-gray-100 transition-colors"
             active-class="!bg-black text-white md:hover:bg-green-700"
           >
             {{ link.label }}

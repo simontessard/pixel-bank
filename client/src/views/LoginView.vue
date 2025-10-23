@@ -7,9 +7,13 @@
 
       <div class="max-w-lg w-full">
 
-        <h1 class="text-2xl md:text-3xl xl:text-4xl font-medium mb-6 md:mb-8">
-          Connexion
-        </h1>
+        <div class="flex flex-col items-center mb-6 md:mb-8">
+          <img src="/logo-green-2.png" alt="PixelBank Logo" class="object-contain p-2.5 bg-white inline-block size-14 md:size-18 rounded-lg mb-1 md:mb-2"/>
+
+          <h1 class="text-2xl md:text-3xl font-medium">
+            Connexion
+          </h1>
+        </div>
 
         <form @submit.prevent="handleLogin" class="w-full">
 

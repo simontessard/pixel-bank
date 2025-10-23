@@ -3,7 +3,7 @@
     <div class="mb-8 flex justify-between items-center">
       <div>
         <h2 class="text-3xl font-bold text-gray-800">Transactions</h2>
-        <p class="text-gray-600 text-sm mt-2">Gérez vos revenus et dépenses</p>
+        <p class="font-light mt-2">Gérez vos revenus et dépenses</p>
       </div>
       <div class="flex space-x-3">
         <button
