@@ -3,7 +3,7 @@
     <div class="mb-8 flex justify-between items-center">
       <div>
         <h2 class="text-3xl font-bold text-gray-800">Mes Comptes</h2>
-        <p class="text-gray-600 mt-2">Gérez tous vos comptes bancaires</p>
+        <p class="text-gray-600 text-sm mt-2">Gérez tous vos comptes bancaires</p>
       </div>
       <button
         @click="showAddAccountModal = true"
