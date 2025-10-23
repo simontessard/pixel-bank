@@ -7,16 +7,10 @@
       </div>
       <div class="flex space-x-3">
         <button
-          @click="showTransferModal = true"
-          class="px-6 py-2.5 bg-purple-600 hover:bg-purple-700 text-white rounded-full font-medium transition"
-        >
-          Virement
-        </button>
-        <button
           @click="showAddTransactionModal = true"
-          class="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-full font-medium transition"
+          class="px-5 py-2.5 text-sm cursor-pointer bg-blue-600 hover:bg-blue-700 text-white rounded-full transition"
         >
-          + Nouvelle transaction
+          Ajouter une transaction
         </button>
       </div>
     </div>
@@ -245,98 +239,6 @@
         </form>
       </div>
     </div>
-
-    <!-- Modal Virement -->
-    <div
-      v-if="showTransferModal"
-      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
-      @click="showTransferModal = false"
-    >
-      <div class="bg-white rounded-xl p-8 max-w-md w-full" @click.stop>
-        <h3 class="text-2xl font-bold text-gray-800 mb-6">Virement entre comptes</h3>
-
-        <form @submit.prevent="handleTransfer" class="space-y-4">
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Depuis le compte</label>
-            <select
-              v-model="transfer.fromAccountId"
-              required
-              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 outline-none"
-            >
-              <option value="">Sélectionnez un compte</option>
-              <option v-for="account in accounts" :key="account.id" :value="account.id">
-                {{ account.name }} ({{ formatAmount(account.balance) }} €)
-              </option>
-            </select>
-          </div>
-
-          <div class="text-center text-2xl text-purple-600">↓</div>
-
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Vers le compte</label>
-            <select
-              v-model="transfer.toAccountId"
-              required
-              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 outline-none"
-            >
-              <option value="">Sélectionnez un compte</option>
-              <option
-                v-for="account in accounts"
-                :key="account.id"
-                :value="account.id"
-                :disabled="account.id === transfer.fromAccountId"
-              >
-                {{ account.name }} ({{ formatAmount(account.balance) }} €)
-              </option>
-            </select>
-          </div>
-
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Montant (€)</label>
-            <input
-              v-model.number="transfer.amount"
-              type="number"
-              step="0.01"
-              min="0.01"
-              required
-              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 outline-none"
-              placeholder="0.00"
-            />
-          </div>
-
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Description (optionnelle)</label>
-            <input
-              v-model="transfer.description"
-              type="text"
-              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 outline-none"
-              placeholder="Motif du virement"
-            />
-          </div>
-
-          <div v-if="error" class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
-            {{ error }}
-          </div>
-
-          <div class="flex space-x-3 pt-4">
-            <button
-              type="button"
-              @click="showTransferModal = false"
-              class="flex-1 px-4 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition font-semibold"
-            >
-              Annuler
-            </button>
-            <button
-              type="submit"
-              :disabled="creating"
-              class="flex-1 px-4 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition font-semibold disabled:opacity-50"
-            >
-              {{ creating ? 'Virement...' : 'Effectuer le virement' }}
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
   </AppLayout>
 </template>
 
@@ -356,7 +258,6 @@ const stats = ref({
 });
 
 const showAddTransactionModal = ref(false);
-const showTransferModal = ref(false);
 const error = ref('');
 const creating = ref(false);
 
@@ -389,13 +290,6 @@ const newTransaction = ref({
   amount: null,
   type: 'EXPENSE',
   category: 'Autre',
-  description: ''
-});
-
-const transfer = ref({
-  fromAccountId: '',
-  toAccountId: '',
-  amount: null,
   description: ''
 });
 
@@ -488,35 +382,6 @@ const handleCreateTransaction = async () => {
   } catch (err) {
     console.error('Erreur création transaction:', err);
     error.value = err.response?.data?.error || err.message || 'Erreur lors de la création';
-  } finally {
-    creating.value = false;
-  }
-};
-
-const handleTransfer = async () => {
-  error.value = '';
-  creating.value = true;
-
-  try {
-    // validations basiques
-    if (!transfer.value.fromAccountId) throw new Error('Compte source requis');
-    if (!transfer.value.toAccountId) throw new Error('Compte cible requis');
-    if (transfer.value.fromAccountId === transfer.value.toAccountId) throw new Error('Les comptes doivent être différents');
-    if (!transfer.value.amount || Number(transfer.value.amount) <= 0) throw new Error('Montant invalide');
-
-    await transactionsAPI.transfer(transfer.value);
-    showTransferModal.value = false;
-    transfer.value = {
-      fromAccountId: '',
-      toAccountId: '',
-      amount: null,
-      description: ''
-    };
-    await loadAccounts();
-    await loadTransactions();
-  } catch (err) {
-    console.error('Erreur virement:', err);
-    error.value = err.response?.data?.error || err.message || 'Erreur lors du virement';
   } finally {
     creating.value = false;
   }
