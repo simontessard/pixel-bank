@@ -1,9 +1,8 @@
 <template>
-  <nav class="bg-white shadow-xs">
-    <div class="container">
-      <div class="flex md:grid md:grid-cols-6 lg:grid-cols-8 justify-between items-center py-4">
+  <nav class="container pt-3 md:pt-5">
+      <div class="rounded-3xl bg-white shadow-xs flex md:grid md:grid-cols-6 lg:grid-cols-8 justify-between items-center px-4 md:px-6 py-3 md:py-4">
 
-        <router-link to="/" class="text-2xl font-semibold text-emerald-500">
+        <router-link to="/" class="text-lg md:text-xl font-semibold text-emerald-500">
             PixelBank
         </router-link>
 
@@ -12,7 +11,7 @@
             v-for="link in navLinks"
             :key="link.path"
             :to="link.path"
-            class="px-4.5 py-2 text-sm rounded-full text-gray-700 bg-gray-100 transition-colors"
+            class="flex items-center gap-2 px-6 py-2.5 text-sm rounded-full text-gray-700 bg-gray-100 transition-colors"
             active-class="!bg-black text-white md:hover:bg-green-700"
           >
             {{ link.label }}
@@ -22,7 +21,6 @@
         <AccountMenu/>
 
       </div>
-    </div>
   </nav>
 </template>
 

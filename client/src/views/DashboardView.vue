@@ -11,25 +11,37 @@
         subtitle="Vue d'ensemble de vos finances 💰"
       />
 
-      <!-- Cartes des comptes -->
-      <Accounts
-        :accounts="accounts"
-        @add-account="showAddAccountModal = true"
-      />
+      <!-- Grille d'affichage -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
 
-      <!-- Statistiques -->
-      <Stats :stats="stats" />
+        <!-- Colonne n°1 -->
+        <div>
+          <Accounts
+            :accounts="accounts"
+            @add-account="showAddAccountModal = true"
+          />
+        </div>
 
-      <div class="flex gap-4 max-lg:flex-col">
-        <TransactionsPie
-          :transactions="transactions"
-          :topN="8"
-          :typeFilter="null"
-          periodLabel="Derniers 12 mois"
-        />
+        <!-- Colonne n°3 -->
+        <div class="flex gap-4 flex-col">
+          <TotalBalanceCard :totalBalance="stats.totalBalance" />
+          <RecentTransactions :transactions="transactions" :limit="3" />
+          <div class="grow w-full bg-gradient-to-r from-emerald-500 to-green-400 rounded-3xl opacity-70"></div>
+        </div>
 
-        <!-- Transactions récentes -->
-        <RecentTransactions :transactions="transactions" :limit="4" />
+        <!-- Colonne n°2 -->
+        <div class="flex gap-4 flex-col">
+
+            <TransactionsPie
+              :transactions="transactions"
+              :topN="8"
+              :typeFilter="null"
+              periodLabel="12 derniers mois"
+            />
+
+            <Stats :stats="stats" />
+        </div>
+
       </div>
 
     </div>
@@ -46,16 +58,19 @@ import Accounts from "@/components/dashboard/Accounts.vue";
 import Stats from "@/components/dashboard/Stats.vue";
 import RecentTransactions from "@/components/dashboard/RecentTransactions.vue";
 import TransactionsPie from "@/components/dashboard/TransactionsPie.vue";
+import TotalBalanceCard from "@/components/dashboard/TotalBalanceCard.vue";
 
 const authStore = useAuthStore();
 
 const loading = ref(true);
 const accounts = ref([]);
 const transactions = ref([]);
+
 const stats = ref({
   totalIncome: 0,
   totalExpense: 0,
-  balance: 0
+  balance: 0,
+  totalBalance: 0
 });
 
 const showAddAccountModal = ref(false);

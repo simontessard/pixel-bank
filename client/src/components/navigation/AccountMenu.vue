@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center space-x-4">
+  <div class="ml-auto flex items-center space-x-4">
     <div class="relative group w-40">
       <div class="flex justify-between items-center bg-gray-100 p-2 rounded-full cursor-pointer">
         <div class="flex items-center gap-2.5">

@@ -1,16 +1,26 @@
 <template>
-   <div class="bg-white rounded-2xl shadow-xs p-5 md:p-6 lg:w-1/2 h-fit">
-    <h3 class="text-lg font-bold text-gray-800 mb-4">Transactions récentes</h3>
+   <div class="bg-white rounded-3xl shadow-xs p-5 md:p-6 h-fit">
+
+     <div class="flex justify-between mb-4">
+       <h3 class="text-lg font-semibold text-gray-800">Transactions récentes</h3>
+
+       <router-link
+         to="/transactions"
+         class="bg-gray-100 py-2 px-5 h-fit text-xs lg:text-sm font-medium rounded-3xl"
+         aria-label="Voir les transactions">
+         Voir tout
+       </router-link>
+     </div>
 
     <div v-if="transactions.length === 0" class="text-center py-8 text-gray-500">
       Aucune transaction pour le moment
     </div>
 
-    <div v-else class="space-y-3">
+    <div v-else class="space-y-4">
       <div
         v-for="transaction in limitedTransactions"
         :key="transaction.id"
-        class="flex justify-between items-center py-3 px-4 bg-gray-50 rounded-xl transition"
+        class="flex justify-between items-center rounded-xl transition"
       >
         <div class="flex items-center space-x-4">
           <div
@@ -28,7 +38,7 @@
         </div>
         <div class="text-right">
           <p
-            class="font-semibold text-lg"
+            class="font-medium font-numbers tracking-tight"
             :class="transaction.type === 'INCOME' ? 'text-green-600' : 'text-red-600'"
           >
             {{ transaction.type === 'INCOME' ? '+' : '-' }}{{ formatAmount(transaction.amount) }}€

@@ -1,8 +1,8 @@
 <template>
-  <div class="bg-white rounded-2xl shadow-xs lg:w-1/2 p-5 md:p-6 mb-6">
+  <div class="bg-white rounded-3xl shadow-xs p-5 md:p-6">
     <header class="mb-4">
-      <h3 class="text-lg font-semibold">Répartition des transactions (par catégorie)</h3>
-      <p class="text-sm text-gray-500">Période: <span class="font-medium">{{ labelPeriod }}</span></p>
+      <h3 class="text-lg font-semibold">Répartition des transactions</h3>
+      <p class="text-sm font-light text-gray-500">{{ labelPeriod }}</p>
     </header>
 
     <div class="w-full">
@@ -110,7 +110,7 @@ const buildChart = () => {
   chart?.destroy();
 
   chart = new Chart(ctx, {
-    type: 'pie',
+    type: 'doughnut',
     data: {
       labels,
       datasets: [
@@ -118,7 +118,8 @@ const buildChart = () => {
           data: values,
           backgroundColor: palette,
           borderColor: '#fff',
-          borderWidth: 1
+          borderRadius: 10,
+          borderWidth: 3,
         }
       ]
     },
@@ -126,7 +127,7 @@ const buildChart = () => {
       responsive: true,
       maintainAspectRatio: false,
       plugins: {
-        legend: { position: 'bottom', labels: { boxWidth: 12 } },
+        legend: { position: 'bottom', labels: { boxWidth: 12} },
         tooltip: {
           callbacks: {
             label(context) {
@@ -166,6 +167,6 @@ onBeforeUnmount(() => {
 <style scoped>
 div > canvas {
   width: 100% !important;
-  height: 270px !important;
+  height: 230px !important;
 }
 </style>

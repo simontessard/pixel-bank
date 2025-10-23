@@ -24,7 +24,7 @@
       <div
         v-for="account in accounts"
         :key="account.id"
-        class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition cursor-pointer"
+        class="bg-white rounded-xl shadow-xs p-6 transition cursor-pointer"
         @click="selectAccount(account)"
       >
         <div class="flex justify-between items-start mb-4">

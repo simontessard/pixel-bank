@@ -22,7 +22,7 @@
     </div>
 
     <!-- Filtres -->
-    <div class="bg-white rounded-xl shadow-md p-6 mb-6">
+    <div class="bg-white rounded-xl shadow-xs p-6 mb-6">
       <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-2">Compte</label>
@@ -79,19 +79,19 @@
 
     <!-- Statistiques -->
     <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
-      <div class="bg-white rounded-xl shadow-md p-6">
+      <div class="bg-white rounded-xl shadow-xs p-6">
         <p class="text-sm text-gray-500 mb-2">Total transactions</p>
         <p class="text-2xl font-bold text-gray-900">{{ stats.transactionCount }}</p>
       </div>
-      <div class="bg-white rounded-xl shadow-md p-6">
+      <div class="bg-white rounded-xl shadow-xs p-6">
         <p class="text-sm text-gray-500 mb-2">Revenus</p>
         <p class="text-2xl font-bold text-green-600">+{{ formatAmount(stats.totalIncome) }} €</p>
       </div>
-      <div class="bg-white rounded-xl shadow-md p-6">
+      <div class="bg-white rounded-xl shadow-xs p-6">
         <p class="text-sm text-gray-500 mb-2">Dépenses</p>
         <p class="text-2xl font-bold text-red-600">-{{ formatAmount(stats.totalExpense) }} €</p>
       </div>
-      <div class="bg-white rounded-xl shadow-md p-6">
+      <div class="bg-white rounded-xl shadow-xs p-6">
         <p class="text-sm text-gray-500 mb-2">Balance</p>
         <p class="text-2xl font-bold" :class="stats.balance >= 0 ? 'text-green-600' : 'text-red-600'">
           {{ formatAmount(stats.balance) }} €
@@ -100,7 +100,7 @@
     </div>
 
     <!-- Liste des transactions -->
-    <div class="bg-white rounded-xl shadow-md p-6">
+    <div class="bg-white rounded-xl shadow-xs p-6">
       <h3 class="text-xl font-bold text-gray-800 mb-4">Liste des transactions</h3>
 
       <div v-if="loading" class="text-center py-12">
@@ -111,15 +111,15 @@
         Aucune transaction trouvée
       </div>
 
-      <div v-else class="space-y-2">
+      <div v-else class="space-y-4">
         <div
           v-for="transaction in transactions"
           :key="transaction.id"
-          class="flex justify-between items-center p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition"
+          class="flex justify-between items-center rounded-lg"
         >
           <div class="flex items-center space-x-4">
             <div
-              class="w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold"
+              class="size-12 rounded-full flex items-center justify-center text-xl font-bold"
               :class="{
                 'bg-green-100 text-green-600': transaction.type === 'INCOME',
                 'bg-red-100 text-red-600': transaction.type === 'EXPENSE',
@@ -137,14 +137,14 @@
             </div>
           </div>
           <p
-            class="font-bold text-xl"
+            class="font-semibold font-numbers tracking-tight text-xl"
             :class="{
               'text-green-600': transaction.type === 'INCOME',
               'text-red-600': transaction.type === 'EXPENSE',
               'text-purple-600': transaction.type === 'TRANSFER'
             }"
           >
-            {{ transaction.type === 'INCOME' ? '+' : '-' }}{{ formatAmount(transaction.amount) }} €
+            {{ transaction.type === 'INCOME' ? '+' : '-' }}{{ formatAmount(transaction.amount) }}€
           </p>
         </div>
       </div>
