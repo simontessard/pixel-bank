@@ -20,30 +20,28 @@
       <div
         v-for="transaction in limitedTransactions"
         :key="transaction.id"
-        class="flex justify-between items-center rounded-xl transition"
+        class="grid grid-cols-8 items-center transition"
       >
-        <div class="flex items-center space-x-4">
+        <div class="col-span-2 flex items-center space-x-3">
           <div
-            class="size-8 rounded-full flex items-center justify-center"
+            class="shrink-0 size-7 rounded-full flex items-center justify-center"
             :class="transaction.type === 'INCOME' ? 'bg-green-100' : 'bg-red-100'"
           >
-            <span :class="transaction.type === 'INCOME' ? 'text-green-600' : 'text-red-600'">
+            <span class="text-sm" :class="transaction.type === 'INCOME' ? 'text-green-600' : 'text-red-600'">
               {{ transaction.type === 'INCOME' ? '↓' : '↑' }}
             </span>
           </div>
           <div>
             <p class="font-medium text-sm text-gray-800">{{ transaction.category }}</p>
-            <p class="text-sm text-gray-500">{{ formatDate(transaction.date) }}</p>
           </div>
         </div>
-        <div class="text-right">
-          <p
-            class="font-medium font-numbers tracking-tight"
-            :class="transaction.type === 'INCOME' ? 'text-emerald-600' : 'text-red-700'"
-          >
+
+        <p class="col-span-3 mx-auto text-xs md:text-sm text-gray-500">{{ formatDate(transaction.date) }}</p>
+
+        <p class="col-span-3 ml-auto font-medium font-numbers tracking-tight">
             {{ transaction.type === 'INCOME' ? '+' : '-' }}{{ formatAmount(transaction.amount) }}€
-          </p>
-        </div>
+        </p>
+
       </div>
     </div>
   </div>

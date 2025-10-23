@@ -13,37 +13,10 @@
       </button>
     </div>
 
-    <!-- Aperçu des comptes -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-      <div
-        v-for="account in accounts"
-        :key="account.id"
-        class="bg-white rounded-xl shadow-xs p-6 transition"
-      >
-        <div class="flex justify-between items-start mb-3">
-          <div>
-            <p class="text-sm text-gray-500">{{ account.type === 'CHECKING' ? 'Compte Courant' : 'Compte Épargne' }}</p>
-            <p class="font-semibold text-gray-800 text-lg">{{ account.name }}</p>
-          </div>
-          <div
-            class="size-10 rounded-full flex items-center justify-center text-lg"
-            :class="{
-              'bg-blue-100 text-blue-600': account.type === 'CHECKING',
-              'bg-green-100 text-green-600': account.type === 'SAVINGS',
-              'bg-purple-100 text-purple-600': account.type === 'INVESTMENT'
-            }"
-          >
-            {{ account.type === 'CHECKING' ? '💳' : account.type === 'SAVINGS' ? '🏦' : '📈' }}
-          </div>
-        </div>
-        <p class="text-2xl font-bold text-gray-900">{{ formatAmount(account.balance) }} €</p>
-      </div>
-    </div>
-
     <!-- Historique des virements -->
-    <div class="bg-white rounded-xl shadow-xs p-6">
+    <div class="bg-white rounded-3xl shadow-xs p-6">
       <div class="flex justify-between items-center mb-6">
-        <h3 class="text-xl font-bold text-gray-800">Historique des virements</h3>
+        <h3 class="text-xl font-bold text-gray-800">Historique</h3>
         <div class="flex items-center space-x-2">
           <label class="text-sm text-gray-600">Compte:</label>
           <select
@@ -91,7 +64,7 @@
               </div>
             </div>
             <div class="text-right ml-4 flex-shrink-0">
-              <p class="font-semibold text-purple-600 text-xl font-numbers tracking-tight">
+              <p class="font-semibold text-xl font-numbers tracking-tight">
                 {{ formatAmount(transfer.amount) }} €
               </p>
             </div>

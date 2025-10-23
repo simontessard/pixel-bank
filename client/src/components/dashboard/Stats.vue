@@ -9,8 +9,8 @@
 
       <div>
         <p class="font-light mb-2">{{ card.label }}</p>
-        <p class="text-2xl font-medium font-numbers tracking-tighter" :class="card.class">
-          <span v-if="card.prefix">{{ card.prefix }}</span>{{ card.formatted }}€
+        <p class="text-2xl font-medium font-numbers tracking-tighter">
+          {{ card.formatted }}€
         </p>
       </div>
 
@@ -51,16 +51,12 @@ const cards = computed(() => [
     key: 'income',
     label: 'Revenus totaux',
     formatted: formatted.value.income,
-    prefix: '+',
-    class: 'text-emerald-600',
     aria: 'Revenus totaux',
   },
   {
     key: 'expense',
     label: 'Dépenses totales',
     formatted: formatted.value.expense,
-    prefix: '-',
-    class: 'text-red-700',
     aria: 'Dépenses totales',
   }
 ]);

@@ -1,5 +1,6 @@
 <template>
   <AppLayout>
+
     <div class="mb-8 flex justify-between items-center">
       <div>
         <h2 class="text-3xl font-bold text-gray-800">Transactions</h2>
@@ -15,15 +16,37 @@
       </div>
     </div>
 
+    <!-- Statistiques -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+      <div class="bg-white rounded-3xl shadow-xs p-6">
+        <p class="text-sm text-gray-500 mb-2">Total transactions</p>
+        <p class="text-2xl font-bold text-gray-900">{{ stats.transactionCount }}</p>
+      </div>
+      <div class="bg-white rounded-3xl shadow-xs p-6">
+        <p class="text-sm text-gray-500 mb-2">Revenus</p>
+        <p class="text-2xl font-bold text-green-600">+{{ formatAmount(stats.totalIncome) }} €</p>
+      </div>
+      <div class="bg-white rounded-3xl shadow-xs p-6">
+        <p class="text-sm text-gray-500 mb-2">Dépenses</p>
+        <p class="text-2xl font-bold text-red-600">-{{ formatAmount(stats.totalExpense) }} €</p>
+      </div>
+      <div class="bg-white rounded-3xl shadow-xs p-6">
+        <p class="text-sm text-gray-500 mb-2">Balance</p>
+        <p class="text-2xl font-bold" :class="stats.balance >= 0 ? 'text-green-600' : 'text-red-600'">
+          {{ formatAmount(stats.balance) }} €
+        </p>
+      </div>
+    </div>
+
     <!-- Filtres -->
-    <div class="bg-white rounded-xl shadow-xs p-6 mb-6">
+    <div class="mb-6">
       <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Compte</label>
+          <label class="block text-sm font-medium mb-2">Compte</label>
           <select
             v-model="filters.accountId"
             @change="loadTransactions"
-            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+            class="w-full px-4 py-2 bg-white rounded-xl focus:ring-2 focus:ring-blue-500 outline-none"
           >
             <option value="">Tous les comptes</option>
             <option v-for="account in accounts" :key="account.id" :value="account.id">
@@ -33,11 +56,11 @@
         </div>
 
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Type</label>
+          <label class="block text-sm font-medium mb-2">Type</label>
           <select
             v-model="filters.type"
             @change="loadTransactions"
-            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+            class="w-full px-4 py-2 bg-white rounded-xl focus:ring-2 focus:ring-blue-500 outline-none"
           >
             <option value="">Tous les types</option>
             <option value="INCOME">Revenus</option>
@@ -47,11 +70,11 @@
         </div>
 
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Catégorie</label>
+          <label class="block text-sm font-medium mb-2">Catégorie</label>
           <select
             v-model="filters.category"
             @change="loadTransactions"
-            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+            class="w-full px-4 py-2 bg-white rounded-xl focus:ring-2 focus:ring-blue-500 outline-none"
           >
             <option value="">Toutes les catégories</option>
             <option v-for="cat in categories" :key="cat" :value="cat">
@@ -63,7 +86,7 @@
         <div class="flex items-end">
           <button
             @click="resetFilters"
-            class="w-full px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition"
+            class="w-full px-4 py-2 cursor-pointer bg-black text-white rounded-xl transition"
           >
             Réinitialiser
           </button>
@@ -71,30 +94,8 @@
       </div>
     </div>
 
-    <!-- Statistiques -->
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
-      <div class="bg-white rounded-xl shadow-xs p-6">
-        <p class="text-sm text-gray-500 mb-2">Total transactions</p>
-        <p class="text-2xl font-bold text-gray-900">{{ stats.transactionCount }}</p>
-      </div>
-      <div class="bg-white rounded-xl shadow-xs p-6">
-        <p class="text-sm text-gray-500 mb-2">Revenus</p>
-        <p class="text-2xl font-bold text-green-600">+{{ formatAmount(stats.totalIncome) }} €</p>
-      </div>
-      <div class="bg-white rounded-xl shadow-xs p-6">
-        <p class="text-sm text-gray-500 mb-2">Dépenses</p>
-        <p class="text-2xl font-bold text-red-600">-{{ formatAmount(stats.totalExpense) }} €</p>
-      </div>
-      <div class="bg-white rounded-xl shadow-xs p-6">
-        <p class="text-sm text-gray-500 mb-2">Balance</p>
-        <p class="text-2xl font-bold" :class="stats.balance >= 0 ? 'text-green-600' : 'text-red-600'">
-          {{ formatAmount(stats.balance) }} €
-        </p>
-      </div>
-    </div>
-
     <!-- Liste des transactions -->
-    <div class="bg-white rounded-xl shadow-xs p-6">
+    <div class="bg-white rounded-3xl shadow-xs p-6">
       <h3 class="text-xl font-bold text-gray-800 mb-4">Liste des transactions</h3>
 
       <div v-if="loading" class="text-center py-12">
@@ -105,7 +106,7 @@
         Aucune transaction trouvée
       </div>
 
-      <div v-else class="space-y-4">
+      <div v-else class="space-y-5">
         <div
           v-for="transaction in transactions"
           :key="transaction.id"
@@ -113,7 +114,7 @@
         >
           <div class="flex items-center space-x-4">
             <div
-              class="size-12 rounded-full flex items-center justify-center text-xl font-bold"
+              class="size-12 md:size-14 rounded-full flex items-center justify-center text-xl font-bold"
               :class="{
                 'bg-green-100 text-green-600': transaction.type === 'INCOME',
                 'bg-red-100 text-red-600': transaction.type === 'EXPENSE',

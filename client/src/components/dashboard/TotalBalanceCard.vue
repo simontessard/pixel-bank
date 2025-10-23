@@ -1,10 +1,9 @@
 <template>
   <article
-    class="relative border-2 border-emerald-300 flex flex-col justify-center items-center bg-white rounded-3xl overflow-hidden shadow-xs p-5 md:p-6"
+    class="relative flex flex-col justify-center items-center bg-white rounded-3xl overflow-hidden shadow-xs p-5 md:p-6"
     aria-label="Balance totale"
   >
-    <div class="absolute w-1/3 h-20 blur-3xl top-4 right-0 bg-gradient-to-br from-lime-200 via-green-400 to-emerald-600 rounded-full"></div>
-    <p class="relative mb-2 font-light mt-6">Balance totale</p>
+    <p class="relative font-light text-sm mt-6 mb-1.5">Balance totale</p>
     <p class="relative text-2xl md:text-3xl font-numbers tracking-tight font-semibold mb-6">
       {{ formattedTotalBalance }}€
     </p>

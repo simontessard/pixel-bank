@@ -147,12 +147,12 @@ exports.getStats = async (req, res) => {
             if (endDate) where.date.lte = new Date(endDate);
         }
 
-        // Récupérer toutes les transactions
+        // Récupérer toutes les transactions (comme avant)
         const transactions = await prisma.transaction.findMany({
             where
         });
 
-        // Calculer les statistiques
+        // Calculer les statistiques basées sur les transactions
         const stats = {
             totalIncome: 0,
             totalExpense: 0,
@@ -162,6 +162,7 @@ exports.getStats = async (req, res) => {
         };
 
         transactions.forEach(t => {
+            // t.amount est un Decimal ; on le convertit en float pour le calcul
             const amount = parseFloat(t.amount);
 
             if (t.type === 'INCOME') {
@@ -183,6 +184,24 @@ exports.getStats = async (req, res) => {
             stats.byCategory[t.category].total += amount;
             stats.byCategory[t.category].count++;
         });
+
+        // 🆕 Calculer la "balance totale" : somme de tous les soldes des comptes
+        // Filtre selon le userId (et accountId si fourni)
+        const accountWhere = { userId: req.userId };
+        if (accountId) accountWhere.id = accountId;
+
+        const totalBalanceAgg = await prisma.account.aggregate({
+            _sum: { balance: true },
+            where: accountWhere
+        });
+
+        // totalBalanceAgg._sum.balance peut être null ou Decimal
+        const totalBalance = totalBalanceAgg._sum && totalBalanceAgg._sum.balance
+            ? parseFloat(totalBalanceAgg._sum.balance)
+            : 0;
+
+        // Ajouter totalBalance au résultat renvoyé
+        stats.totalBalance = totalBalance;
 
         res.json(stats);
     } catch (error) {

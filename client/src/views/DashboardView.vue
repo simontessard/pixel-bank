@@ -26,7 +26,7 @@
         <div class="flex gap-4 flex-col">
           <TotalBalanceCard :totalBalance="stats.totalBalance" />
           <RecentTransactions :transactions="transactions" :limit="3" />
-          <div class="flex grow w-full bg-gradient-to-br from-lime-400 via-green-400 to-emerald-600 rounded-3xl opacity-70 p-5 md:p-6 xl:p-7">
+          <div class="flex grow w-full bg-gradient-to-br from-emerald-600 via-green-400 to-lime-400 rounded-3xl opacity-70 p-5 md:p-6 xl:p-7">
             <p class="text-white text-lg md:text-xl 2xl:text-2xl font-semibold">
               Explore tes finances <br/>
               en toute confiance <br/>
