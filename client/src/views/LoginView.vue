@@ -2,8 +2,7 @@
       <div class="max-w-lg w-full">
 
         <div class="flex flex-col items-center mb-6 md:mb-8">
-          <img src="/logo-green-2.png" alt="PixelBank Logo" class="object-contain p-2.5 bg-white inline-block size-14 md:size-18 rounded-lg mb-1 md:mb-2"/>
-
+          <img src="/logo-green-2.png" alt="PixelBank Logo" class="object-contain p-2.5 bg-white inline-block size-12 md:size-14 rounded-lg mb-1 md:mb-1.5"/>
           <h1 class="text-2xl md:text-3xl font-medium">
             Connexion
           </h1>
@@ -30,7 +29,7 @@
                 v-model="password"
                 type="password"
                 required
-                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition"
+                class="w-full px-4 py-3 border border-gray-300 placeholder:text-black/35 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition"
                 placeholder="••••••••"
               />
             </div>
