@@ -11,7 +11,6 @@
         subtitle="Vue d'ensemble de vos finances 💰"
       />
 
-      <!-- Grille d'affichage -->
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
 
         <!-- Colonne n°1 -->
@@ -22,7 +21,7 @@
           />
         </div>
 
-        <!-- Colonne n°3 -->
+        <!-- Colonne n°2 -->
         <div class="flex gap-4 flex-col">
           <TotalBalanceCard :totalBalance="stats.totalBalance" />
           <RecentTransactions :transactions="transactions" :limit="3" />
@@ -35,7 +34,7 @@
           </div>
         </div>
 
-        <!-- Colonne n°2 -->
+        <!-- Colonne n°3 -->
         <div class="flex gap-4 flex-col">
 
             <TransactionsPie

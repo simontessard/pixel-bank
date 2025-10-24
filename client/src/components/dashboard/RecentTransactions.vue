@@ -4,12 +4,7 @@
      <div class="flex justify-between mb-4">
        <h3 class="text-lg font-semibold text-gray-800">Transactions récentes</h3>
 
-       <router-link
-         to="/transactions"
-         class="bg-gray-100 py-2 px-5 h-fit text-xs lg:text-sm font-medium rounded-3xl"
-         aria-label="Voir les transactions">
-         Voir tout
-       </router-link>
+       <ViewAllButton to="/transactions" label="Voir tout" />
      </div>
 
     <div v-if="transactions.length === 0" class="text-center py-8 text-gray-500">
@@ -49,6 +44,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
+import ViewAllButton from "@/components/common/ViewAllButton.vue";
 
 const props = defineProps<{
   transactions: Array<{

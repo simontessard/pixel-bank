@@ -11,8 +11,8 @@
           v-for="link in navLinks"
           :key="link.path"
           :to="link.path"
-          class="flex items-center gap-2 px-5 xl:px-6 py-2.5 text-xs xl:text-sm rounded-full text-gray-700 bg-gray-100 transition-colors"
-          active-class="!bg-black text-white md:hover:bg-green-700"
+          class="flex items-center gap-2 px-5 xl:px-6 py-2.5 text-xs xl:text-sm rounded-full text-gray-700 bg-gray-100 transition-colors hover:bg-gray-200"
+          :class="{ '!bg-black text-white': isActiveLink(link.path) }"
         >
           <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path :d="link.icon" stroke-linecap="round" stroke-linejoin="round"/>
@@ -28,7 +28,10 @@
 </template>
 
 <script setup lang="ts">
+import { useRoute } from 'vue-router';
 import AccountMenu from "@/components/navigation/AccountMenu.vue";
+
+const route = useRoute();
 
 const navLinks = [
   {
@@ -52,4 +55,11 @@ const navLinks = [
     icon: 'M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4'
   }
 ];
+
+const isActiveLink = (path: string) => {
+  if (path === '/') {
+    return route.path === '/';
+  }
+  return route.path.startsWith(path);
+};
 </script>

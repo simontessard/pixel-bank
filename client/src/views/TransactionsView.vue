@@ -39,14 +39,14 @@
     </div>
 
     <!-- Filtres -->
-    <div class="mb-6">
+    <div class="mb-4">
       <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
         <div>
           <label class="block text-sm font-medium mb-2">Compte</label>
           <select
             v-model="filters.accountId"
             @change="loadTransactions"
-            class="w-full px-4 py-2 bg-white rounded-xl focus:ring-2 focus:ring-blue-500 outline-none"
+            class="w-full px-4 py-2 bg-white text-sm rounded-xl focus:ring-2 focus:ring-blue-500 outline-none"
           >
             <option value="">Tous les comptes</option>
             <option v-for="account in accounts" :key="account.id" :value="account.id">
@@ -60,7 +60,7 @@
           <select
             v-model="filters.type"
             @change="loadTransactions"
-            class="w-full px-4 py-2 bg-white rounded-xl focus:ring-2 focus:ring-blue-500 outline-none"
+            class="w-full px-4 py-2 bg-white text-sm rounded-xl focus:ring-2 focus:ring-blue-500 outline-none"
           >
             <option value="">Tous les types</option>
             <option value="INCOME">Revenus</option>
@@ -74,7 +74,7 @@
           <select
             v-model="filters.category"
             @change="loadTransactions"
-            class="w-full px-4 py-2 bg-white rounded-xl focus:ring-2 focus:ring-blue-500 outline-none"
+            class="w-full px-4 py-2 bg-white text-sm rounded-xl focus:ring-2 focus:ring-blue-500 outline-none"
           >
             <option value="">Toutes les catégories</option>
             <option v-for="cat in categories" :key="cat" :value="cat">
@@ -86,7 +86,7 @@
         <div class="flex items-end">
           <button
             @click="resetFilters"
-            class="w-full px-4 py-2 cursor-pointer bg-black text-white rounded-xl transition"
+            class="w-full px-4 py-2 cursor-pointer text-sm bg-black text-white rounded-xl transition"
           >
             Réinitialiser
           </button>

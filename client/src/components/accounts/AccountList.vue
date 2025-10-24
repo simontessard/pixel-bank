@@ -4,7 +4,7 @@
     <div
       v-for="account in accounts"
       :key="account.id"
-      class="bg-white rounded-3xl shadow-xs p-6 transition cursor-pointer hover:shadow-md"
+      class="bg-white rounded-3xl shadow-xs p-6 transition cursor-pointer"
       @click="$emit('select', account)"
     >
       <div class="flex justify-between items-start mb-4">

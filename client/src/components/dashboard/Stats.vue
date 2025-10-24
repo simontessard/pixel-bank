@@ -14,19 +14,14 @@
         </p>
       </div>
 
-      <router-link
-        to="/transactions"
-        class="bg-gray-100 py-2 px-5 text-xs lg:text-sm font-medium rounded-3xl"
-        aria-label="Voir les transactions">
-        Voir tout
-      </router-link>
-
+      <ViewAllButton to="/transactions" label="Voir tout" />
     </article>
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue';
+import ViewAllButton from "@/components/common/ViewAllButton.vue";
 
 type Stats = {
   totalIncome: number;
