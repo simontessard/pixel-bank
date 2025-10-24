@@ -1,6 +1,6 @@
 <template>
   <div class="hidden lg:flex grow min-h-screen max-h-screen lg:w-1/2 p-3">
-    <div class="flex flex-col justify-between bg-gradient-to-br from-emerald-600 via-green-400 to-lime-400 w-full rounded-3xl p-10 xl:p-16 2xl:p-24">
+    <div class="flex flex-col justify-between bg-gradient-primary w-full rounded-3xl p-10 xl:p-16 2xl:p-24">
 
       <div>
         <h1 ref="title" class="text-white text-lg md:text-xl mb-1 md:mb-1.5">

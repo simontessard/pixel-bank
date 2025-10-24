@@ -8,9 +8,17 @@
 
 @theme {
   --font-tasa: "Geist", sans-serif;
-  --font-numbers tracking-tight: "Chivo", monospace;
+  --font-numbers : "Chivo", monospace;
 }
 
 body {
   @apply font-tasa;
+}
+
+.bg-gradient-primary {
+  @apply bg-gradient-to-br from-emerald-600 via-green-400 to-lime-500;
+}
+
+.bg-gradient-secondary {
+  @apply bg-gradient-to-tr from-emerald-600 via-green-400 to-lime-600;
 }
