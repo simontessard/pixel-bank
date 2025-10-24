@@ -1,10 +1,4 @@
 <template>
-  <div class="min-h-screen flex items-center justify-end">
-
-    <WelcomeScreen/>
-
-    <div class="min-h-screen flex flex-col items-center justify-center bg-white w-full lg:w-1/2 p-8">
-
       <div class="max-w-lg w-full">
 
         <div class="flex flex-col items-center mb-6 md:mb-8">
@@ -81,22 +75,18 @@
 
         <p class="text-center text-gray-600 text-sm mt-4">
           Déjà un compte ?
-          <router-link to="/login" class="text-green-600 hover:text-green-700 font-semibold">
+          <router-link to="/auth/login" class="text-green-600 hover:text-green-700 font-semibold">
             Se connecter
           </router-link>
         </p>
 
       </div>
-
-    </div>
-  </div>
 </template>
 
 <script setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/auth';
-import WelcomeScreen from "@/components/common/WelcomeScreen.vue";
 
 const router = useRouter();
 const authStore = useAuthStore();
