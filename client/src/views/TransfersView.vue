@@ -7,8 +7,7 @@
       </div>
       <button
         @click="showTransferModal = true"
-        class="px-5 py-2.5 text-sm cursor-pointer bg-gradient-secondary text-white rounded-full font-medium transition"
-      >
+        class="css-button">
         + Nouveau virement
       </button>
     </div>

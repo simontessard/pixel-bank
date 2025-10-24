@@ -9,8 +9,7 @@
       <div class="flex space-x-3">
         <button
           @click="showAddTransactionModal = true"
-          class="px-5 py-2.5 text-sm cursor-pointer bg-blue-600 hover:bg-blue-700 text-white rounded-full transition"
-        >
+          class="css-button">
           Ajouter une transaction
         </button>
       </div>

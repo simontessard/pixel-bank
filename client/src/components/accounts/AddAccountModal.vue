@@ -1,16 +1,22 @@
-<!-- components/accounts/AddAccountModal.vue -->
 <template>
-  <div
-    v-if="show"
-    class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
-    @click="$emit('close')"
+  <VueFinalModal
+    v-model="internalShow"
+    teleport-to="body"
+    :clickToClose="true"
+    :escToClose="true"
+    :height="'auto'"
+    :width="'auto'"
+    class="flex justify-center items-center"
+    overlay-class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+    content-class="bg-white rounded-xl p-8 max-w-lg w-full mx-4"
+    aria-label="Créer un nouveau compte"
   >
-    <div class="bg-white rounded-xl p-8 max-w-md w-full mx-4" @click.stop>
+    <div @click.stop>
       <h3 class="text-2xl font-bold text-gray-800 mb-6">Créer un nouveau compte</h3>
 
       <form @submit.prevent="handleSubmit" class="space-y-4">
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Nom du compte</label>
+          <label class="block text-sm font-medium mb-2">Nom du compte</label>
           <input
             v-model="form.name"
             type="text"
@@ -21,7 +27,7 @@
         </div>
 
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Type de compte</label>
+          <label class="block text-sm font-medium mb-2">Type de compte</label>
           <select
             v-model="form.type"
             required
@@ -39,26 +45,27 @@
         <div class="flex space-x-3 pt-4">
           <button
             type="button"
-            @click="$emit('close')"
-            class="flex-1 px-4 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition font-semibold"
+            @click="close"
+            class="flex-1 px-4 py-2.5 cursor-pointer border border-gray-300 rounded-full hover:bg-gray-50 transition"
           >
             Annuler
           </button>
           <button
             type="submit"
             :disabled="loading"
-            class="flex-1 px-4 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition font-semibold disabled:opacity-50"
+            class="flex-1 px-4 py-2.5 cursor-pointer bg-blue-600 hover:bg-blue-700 text-white rounded-full transition disabled:opacity-50"
           >
             {{ loading ? 'Création...' : 'Créer' }}
           </button>
         </div>
       </form>
     </div>
-  </div>
+  </VueFinalModal>
 </template>
 
-<script setup>
-import { ref, watch } from 'vue';
+<script setup lang="ts">
+import { ref, watch, computed } from 'vue';
+import { VueFinalModal } from 'vue-final-modal';
 import { accountsAPI } from '@/services/api';
 
 const props = defineProps({
@@ -78,6 +85,13 @@ const form = ref({
 const loading = ref(false);
 const error = ref('');
 
+const internalShow = computed({
+  get: () => props.show,
+  set: (val: boolean) => {
+    if (!val) emit('close');
+  }
+});
+
 const handleSubmit = async () => {
   error.value = '';
   loading.value = true;
@@ -87,14 +101,17 @@ const handleSubmit = async () => {
     form.value = { name: '', type: 'CHECKING' };
     emit('created');
     emit('close');
-  } catch (err) {
-    error.value = err.response?.data?.error || 'Erreur lors de la création';
+  } catch (err: any) {
+    error.value = err?.response?.data?.error || 'Erreur lors de la création';
   } finally {
     loading.value = false;
   }
 };
 
-// Réinitialiser le formulaire quand la modal se ferme
+const close = () => {
+  emit('close');
+};
+
 watch(() => props.show, (newVal) => {
   if (!newVal) {
     form.value = { name: '', type: 'CHECKING' };

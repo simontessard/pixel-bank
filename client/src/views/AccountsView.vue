@@ -7,9 +7,8 @@
       </div>
       <button
         @click="showAddAccountModal = true"
-        class="px-5 py-2.5 text-sm cursor-pointer bg-blue-600 hover:bg-blue-700 size-fit text-white rounded-full font-medium transition flex items-center space-x-2"
-      >
-        <span>Ajouter un compte</span>
+        class="css-button">
+        Ajouter un compte
       </button>
     </div>
 
