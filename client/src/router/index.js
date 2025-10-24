@@ -1,8 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import { useAuthStore } from '@/stores/auth';
 import AuthLayout from "@/components/layout/AuthLayout.vue";
+import ClassicLayout from "@/components/layout/ClassicLayout.vue";
 import LoginView from "@/views/LoginView.vue";
 import RegisterView from "@/views/RegisterView.vue";
+import DashboardView from "@/views/DashboardView.vue";
+import AccountsView from "@/views/AccountsView.vue";
+import TransactionsView from "@/views/TransactionsView.vue";
+import TransfersView from "@/views/TransfersView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -23,44 +28,44 @@ const router = createRouter({
         }
       ]
     },
-    // Redirection de /login vers /auth/login
     {
       path: '/login',
       redirect: '/auth/login'
     },
-    // Redirection de /register vers /auth/register
     {
       path: '/register',
       redirect: '/auth/register'
     },
     {
       path: '/',
-      name: 'dashboard',
-      component: () => import('../views/DashboardView.vue'),
-      meta: { requiresAuth: true }
-    },
-    {
-      path: '/accounts',
-      name: 'accounts',
-      component: () => import('../views/AccountsView.vue'),
-      meta: { requiresAuth: true }
-    },
-    {
-      path: '/transactions',
-      name: 'transactions',
-      component: () => import('../views/TransactionsView.vue'),
-      meta: { requiresAuth: true }
-    },
-    {
-      path: '/transfers',
-      name: 'transfers',
-      component: () => import('../views/TransfersView.vue'),
-      meta: { requiresAuth: true }
+      component: ClassicLayout,
+      meta: { requiresAuth: true },
+      children: [
+        {
+          path: '',
+          name: 'dashboard',
+          component: DashboardView
+        },
+        {
+          path: 'accounts',
+          name: 'accounts',
+          component: AccountsView
+        },
+        {
+          path: 'transactions',
+          name: 'transactions',
+          component: TransactionsView
+        },
+        {
+          path: 'transfers',
+          name: 'transfers',
+          component: TransfersView
+        }
+      ]
     }
   ]
 });
 
-// Guard pour les routes protégées
 router.beforeEach((to, from, next) => {
   const authStore = useAuthStore();
 
