@@ -116,14 +116,6 @@ DIRECT_URL="postgresql://user:password@host:port/database"
 JWT_SECRET="votre_secret_jwt"
 ```
 
-## 📝 Licence
-
-MIT
-
-## 👤 Auteur
-
-Simon TESSARD
-
 ---
 
-⭐ N'hésitez pas à star le projet si vous l'appréciez !
+Simon TESSARD
