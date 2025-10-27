@@ -14,11 +14,12 @@
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
 
         <!-- Colonne n°1 -->
-        <div>
+        <div class="flex gap-4 flex-col">
           <Accounts
             :accounts="accounts"
             @add-account="showAddAccountModal = true"
           />
+          <Expenses :transactions="transactions" />
         </div>
 
         <!-- Colonne n°2 -->
@@ -64,6 +65,7 @@ import Stats from "@/components/dashboard/Stats.vue";
 import RecentTransactions from "@/components/dashboard/RecentTransactions.vue";
 import TransactionsPie from "@/components/dashboard/TransactionsPie.vue";
 import TotalBalanceCard from "@/components/dashboard/TotalBalanceCard.vue";
+import Expenses from "@/components/dashboard/Expenses.vue";
 
 const authStore = useAuthStore();
 
