@@ -86,12 +86,22 @@ const chartData = computed(() => {
 });
 
 const generatePalette = (n: number) => {
+  const colors = [
+    '#065F46', // vert foncé (green-800)
+    '#10B981', // vert émeraude (emerald-500)
+    '#34D399', // vert clair (emerald-400)
+    '#6EE7B7', // vert très clair (emerald-300)
+    '#1F2937', // noir grisâtre (gray-800)
+    '#374151', // gris foncé (gray-700)
+    '#059669', // vert intense (emerald-600)
+    '#047857', // vert profond (emerald-700)
+    '#4B5563', // gris moyen (gray-600)
+    '#14532D', // vert très foncé (green-900)
+  ];
+
   const palette: string[] = [];
   for (let i = 0; i < n; i++) {
-    const hue = Math.round((i * 360) / n);
-    const sat = 65;
-    const light = 55;
-    palette.push(`hsl(${hue}deg ${sat}% ${light}%)`);
+    palette.push(colors[i % colors.length]);
   }
   return palette;
 };
@@ -127,7 +137,7 @@ const buildChart = () => {
       responsive: true,
       maintainAspectRatio: false,
       plugins: {
-        legend: { position: 'bottom', labels: { boxWidth: 12} },
+        legend: { position: 'bottom',  labels: { boxWidth: 12, usePointStyle: true, pointStyle: 'circle', padding: 20 } },
         tooltip: {
           callbacks: {
             label(context) {

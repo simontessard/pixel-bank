@@ -59,16 +59,17 @@ const createChart = () => {
   const labels = Object.keys(categoryData);
   const data = Object.values(categoryData);
 
-  // Color palette
   const colors = [
-    '#EF4444', // red
-    '#F59E0B', // amber
-    '#10B981', // emerald
-    '#3B82F6', // blue
-    '#8B5CF6', // violet
-    '#EC4899', // pink
-    '#06B6D4', // cyan
-    '#F97316', // orange
+    '#065F46',
+    '#10B981',
+    '#34D399',
+    '#6EE7B7',
+    '#1F2937',
+    '#374151',
+    '#059669',
+    '#047857',
+    '#4B5563',
+    '#14532D',
   ];
 
   const ctx = chartCanvas.value.getContext('2d');
@@ -98,8 +99,7 @@ const createChart = () => {
             }
           },
           grid: {
-            display: true,
-            color: '#f3f4f6'
+            display: false,
           }
         },
         x: {
