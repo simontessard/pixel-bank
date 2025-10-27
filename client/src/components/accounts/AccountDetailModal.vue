@@ -20,7 +20,9 @@
           >
             {{ account.type === 'CHECKING' ? 'Courant' : 'Épargne' }}
           </span>
-          <h3 class="text-2xl md:text-3xl font-bold text-gray-800">{{ account.name }}</h3>
+          <h3 class="text-2xl font-bold text-gray-800">
+            {{ account.name }}
+          </h3>
           <p class="text-2xl md:text-3xl font-bold text-gray-900 mt-4">
             {{ formatAmount(account.balance) }} €
           </p>

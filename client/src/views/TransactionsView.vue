@@ -23,11 +23,11 @@
       </div>
       <div class="bg-white rounded-3xl shadow-xs p-6">
         <p class="text-sm text-gray-500 mb-2">Revenus</p>
-        <p class="text-2xl font-bold text-green-600">+{{ formatAmount(stats.totalIncome) }} €</p>
+        <p class="text-2xl font-bold text-green-600">{{ formatAmount(stats.totalIncome) }} €</p>
       </div>
       <div class="bg-white rounded-3xl shadow-xs p-6">
         <p class="text-sm text-gray-500 mb-2">Dépenses</p>
-        <p class="text-2xl font-bold text-red-600">-{{ formatAmount(stats.totalExpense) }} €</p>
+        <p class="text-2xl font-bold text-red-600">{{ formatAmount(stats.totalExpense) }} €</p>
       </div>
       <div class="bg-white rounded-3xl shadow-xs p-6">
         <p class="text-sm text-gray-500 mb-2">Balance</p>

@@ -20,14 +20,17 @@
             @add-account="showAddAccountModal = true"
           />
           <Expenses :transactions="transactions" />
+          <div class="flex grow w-full bg-gradient-primary rounded-2xl md:rounded-3xl opacity-80 p-5 md:p-6 xl:p-7">
+            <ViewAllButton to="/accounts" label="Consulter mes comptes" />
+          </div>
         </div>
 
         <!-- Colonne n°2 -->
         <div class="flex gap-4 flex-col">
           <TotalBalanceCard :totalBalance="stats.totalBalance" />
           <RecentTransactions :transactions="transactions" :limit="3" />
-          <div class="flex grow w-full bg-gradient-primary rounded-3xl opacity-70 p-5 md:p-6 xl:p-7">
-            <p class="text-white text-lg md:text-xl 2xl:text-2xl font-semibold">
+          <div class="flex grow w-full bg-gradient-primary rounded-2xl md:rounded-3xl opacity-80 p-5 md:p-6 xl:p-7">
+            <p class="text-white text-lg md:text-xl 2xl:text-2xl font-medium">
               Explore tes finances <br/>
               en toute confiance <br/>
               avec PixelBank !
@@ -66,6 +69,7 @@ import RecentTransactions from "@/components/dashboard/RecentTransactions.vue";
 import TransactionsPie from "@/components/dashboard/TransactionsPie.vue";
 import TotalBalanceCard from "@/components/dashboard/TotalBalanceCard.vue";
 import Expenses from "@/components/dashboard/Expenses.vue";
+import ViewAllButton from "@/components/common/ViewAllButton.vue";
 
 const authStore = useAuthStore();
 

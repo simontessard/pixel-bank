@@ -13,7 +13,7 @@
           </p>
           <h3 class="text-xl font-medium text-gray-800">{{ account.name }}</h3>
         </div>
-        <ViewAllButton to="/accounts" label="Voir tous mes comptes" />
+        <ViewAllButton to="/accounts" label="Consulter mes comptes" />
       </div>
       <p class="text-xl md:text-2xl font-semibold font-numbers tracking-tight text-gray-900">
         {{ formatAmount(account.balance) }}€
