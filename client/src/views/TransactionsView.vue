@@ -145,100 +145,13 @@
     </div>
 
     <!-- Modal Nouvelle transaction -->
-    <div
-      v-if="showAddTransactionModal"
-      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
-      @click="showAddTransactionModal = false"
-    >
-      <div class="bg-white rounded-xl p-8 max-w-md w-full" @click.stop>
-        <h3 class="text-2xl font-bold text-gray-800 mb-6">Nouvelle transaction</h3>
-
-        <form @submit.prevent="handleCreateTransaction" class="space-y-4">
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Compte</label>
-            <select
-              v-model="newTransaction.accountId"
-              required
-              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-            >
-              <option value="">Sélectionnez un compte</option>
-              <option v-for="account in accounts" :key="account.id" :value="account.id">
-                {{ account.name }} ({{ formatAmount(account.balance) }} €)
-              </option>
-            </select>
-          </div>
-
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Type</label>
-            <select
-              v-model="newTransaction.type"
-              required
-              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-            >
-              <option value="INCOME">Revenu</option>
-              <option value="EXPENSE">Dépense</option>
-            </select>
-          </div>
-
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Montant (€)</label>
-            <input
-              v-model.number="newTransaction.amount"
-              type="number"
-              step="0.01"
-              min="0.01"
-              required
-              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-              placeholder="0.00"
-            />
-          </div>
-
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Catégorie</label>
-            <select
-              v-model="newTransaction.category"
-              required
-              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-            >
-              <option v-for="cat in categories" :key="cat" :value="cat">
-                {{ cat }}
-              </option>
-            </select>
-          </div>
-
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Description (optionnelle)</label>
-            <input
-              v-model="newTransaction.description"
-              type="text"
-              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-              placeholder="Description de la transaction"
-            />
-          </div>
-
-          <div v-if="error" class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
-            {{ error }}
-          </div>
-
-          <div class="flex space-x-3 pt-4">
-            <button
-              type="button"
-              @click="showAddTransactionModal = false"
-              class="flex-1 px-4 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition font-semibold"
-            >
-              Annuler
-            </button>
-            <button
-              type="submit"
-              :disabled="creating"
-              class="flex-1 px-4 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition font-semibold disabled:opacity-50"
-            >
-              {{ creating ? 'Création...' : 'Créer' }}
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
+    <TransactionModal
+      :show="showAddTransactionModal"
+      :accounts="accounts"
+      :categories="categories"
+      @close="showAddTransactionModal = false"
+      @submit="handleCreateTransaction"
+    />
   </AppLayout>
 </template>
 
@@ -246,6 +159,7 @@
 import { ref, onMounted } from 'vue';
 import { accountsAPI, transactionsAPI } from '@/services/api';
 import AppLayout from '@/components/AppLayout.vue';
+import TransactionModal from "@/components/transactions/TransactionModal.vue";
 
 const loading = ref(true);
 const accounts = ref([]);
@@ -258,8 +172,6 @@ const stats = ref({
 });
 
 const showAddTransactionModal = ref(false);
-const error = ref('');
-const creating = ref(false);
 
 const categories = [
   'Salaire',
@@ -283,14 +195,6 @@ const filters = ref({
   accountId: '',
   type: '',
   category: ''
-});
-
-const newTransaction = ref({
-  accountId: '',
-  amount: null,
-  type: 'EXPENSE',
-  category: 'Autre',
-  description: ''
 });
 
 const formatAmount = (amount) => {
@@ -318,7 +222,6 @@ const loadAccounts = async () => {
     accounts.value = response.data || [];
   } catch (err) {
     console.error('Erreur chargement comptes:', err);
-    // Optionnellement set a user-friendly error
   }
 };
 
@@ -344,7 +247,6 @@ const loadTransactions = async () => {
     };
   } catch (err) {
     console.error('Erreur chargement transactions:', err);
-    // Optionally show UI error
   } finally {
     loading.value = false;
   }
@@ -359,35 +261,18 @@ const resetFilters = () => {
   loadTransactions();
 };
 
-const handleCreateTransaction = async () => {
-  error.value = '';
-  creating.value = true;
-
+const handleCreateTransaction = async (transactionData) => {
   try {
-    // validate minimalement
-    if (!newTransaction.value.accountId) throw new Error('Compte requis');
-    if (!newTransaction.value.amount || Number(newTransaction.value.amount) <= 0) throw new Error('Montant invalide');
-
-    await transactionsAPI.create(newTransaction.value);
+    await transactionsAPI.create(transactionData);
     showAddTransactionModal.value = false;
-    newTransaction.value = {
-      accountId: '',
-      amount: null,
-      type: 'EXPENSE',
-      category: 'Autre',
-      description: ''
-    };
     await loadAccounts();
     await loadTransactions();
   } catch (err) {
     console.error('Erreur création transaction:', err);
-    error.value = err.response?.data?.error || err.message || 'Erreur lors de la création';
-  } finally {
-    creating.value = false;
+    throw err;
   }
 };
 
-// initial load
 onMounted(async () => {
   loading.value = true;
   await Promise.all([loadAccounts(), loadTransactions()]);
@@ -397,8 +282,4 @@ onMounted(async () => {
 
 <style scoped>
 /* petites améliorations visuelles si nécessaire */
-.fixed .bg-white {
-  max-height: 90vh;
-  overflow-y: auto;
-}
 </style>
