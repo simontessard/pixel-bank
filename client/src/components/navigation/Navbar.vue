@@ -3,7 +3,7 @@
     <div class="rounded-3xl bg-white shadow-xs flex md:grid md:grid-cols-6 lg:grid-cols-8 justify-between items-center px-4 md:px-6 py-3 md:py-3.5">
 
       <router-link to="/" class="flex items-center gap-2 text-lg font-semibold text-emerald-500">
-        <img src="/logo-green-2.png" alt="PixelBank Logo" class="object-contain inline-block size-6 md:size-7"/>
+        <img src="/logo.png" alt="PixelBank Logo" class="object-contain inline-block size-6 md:size-7"/>
       </router-link>
 
       <div class="col-span-4 lg:col-span-6 hidden md:flex justify-center space-x-4">
