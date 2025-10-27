@@ -1,26 +1,33 @@
 <template>
-  <div
-    v-if="account"
-    class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
-    @click="$emit('close')"
+  <VueFinalModal
+    v-model="internalShow"
+    teleport-to="body"
+    :clickToClose="true"
+    :escToClose="true"
+    :height="'auto'"
+    :width="'auto'"
+    class="flex justify-center items-center"
+    overlay-class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+    content-class="bg-white rounded-xl p-8 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto"
+    :aria-label="`Détails du compte ${account?.name || ''}`"
   >
-    <div class="bg-white rounded-xl p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto" @click.stop>
+    <div v-if="account" @click.stop>
       <div class="flex justify-between items-start mb-6">
         <div>
           <span
-            class="px-3 py-1 rounded-full text-xs font-semibold mb-2 inline-block"
+            class="px-2 py-1 rounded-md text-xs font-semibold mb-2 inline-block"
             :class="account.type === 'CHECKING' ? 'bg-blue-100 text-blue-600' : 'bg-green-100 text-green-600'"
           >
             {{ account.type === 'CHECKING' ? 'Courant' : 'Épargne' }}
           </span>
-          <h3 class="text-3xl font-bold text-gray-800">{{ account.name }}</h3>
-          <p class="text-4xl font-bold text-gray-900 mt-4">
+          <h3 class="text-2xl md:text-3xl font-bold text-gray-800">{{ account.name }}</h3>
+          <p class="text-2xl md:text-3xl font-bold text-gray-900 mt-4">
             {{ formatAmount(account.balance) }} €
           </p>
         </div>
         <button
-          @click="$emit('close')"
-          class="text-gray-400 hover:text-gray-600 text-2xl"
+          @click="close"
+          class="cursor-pointer text-gray-400 font-light md:hover:text-gray-600 text-4xl"
         >
           ×
         </button>
@@ -54,27 +61,45 @@
         </div>
       </div>
     </div>
-  </div>
+  </VueFinalModal>
 </template>
 
-<script setup>
-defineProps({
+<script setup lang="ts">
+import { computed } from 'vue';
+import { VueFinalModal } from 'vue-final-modal';
+
+const props = defineProps({
+  show: {
+    type: Boolean,
+    required: true
+  },
   account: {
     type: Object,
     default: null
   }
 });
 
-defineEmits(['close']);
+const emit = defineEmits(['close']);
 
-const formatAmount = (amount) => {
-  return parseFloat(amount).toLocaleString('fr-FR', {
+const internalShow = computed({
+  get: () => props.show,
+  set: (val: boolean) => {
+    if (!val) emit('close');
+  }
+});
+
+const close = () => {
+  emit('close');
+};
+
+const formatAmount = (amount: number) => {
+  return parseFloat(String(amount)).toLocaleString('fr-FR', {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
   });
 };
 
-const formatDate = (date) => {
+const formatDate = (date: string) => {
   return new Date(date).toLocaleDateString('fr-FR', {
     day: '2-digit',
     month: 'long',

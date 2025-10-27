@@ -31,8 +31,9 @@
     />
 
     <AccountDetailModal
+      :show="showDetailsModal"
       :account="selectedAccount"
-      @close="selectedAccount = null"
+      @close="showDetailsModal = false"
     />
 
   </AppLayout>
@@ -49,6 +50,7 @@ import AccountList from "@/components/accounts/AccountList.vue";
 const loading = ref(true);
 const accounts = ref([]);
 const showAddAccountModal = ref(false);
+const showDetailsModal = ref(false);
 const selectedAccount = ref(null);
 
 const loadAccounts = async () => {
@@ -67,6 +69,7 @@ const selectAccount = async (account) => {
   try {
     const response = await accountsAPI.getById(account.id);
     selectedAccount.value = response.data;
+    showDetailsModal.value = true; // ← AJOUT DE CETTE LIGNE
   } catch (err) {
     console.error('Erreur chargement détails:', err);
   }

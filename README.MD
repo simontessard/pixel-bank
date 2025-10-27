@@ -46,7 +46,7 @@ Pixel Bank est une application web complète qui offre une expérience de banque
 ### Prérequis
 - Node.js
 - PostgreSQL (ou compte Supabase)
-- npm ou yarn
+- npm
 
 ### Backend
 ```bash
@@ -55,9 +55,7 @@ npm install
 
 # Configuration
 cp .env.example .env
-# Remplir les variables d'environnement :
-# DATABASE_URL=your_postgresql_url
-# JWT_SECRET=your_jwt_secret
+# Remplir les variables d'environnement
 
 # Migration de la base de données
 npx prisma migrate dev
@@ -71,11 +69,6 @@ npm run dev
 ```bash
 cd frontend
 npm install
-
-# Configuration
-cp .env.example .env
-# Remplir les variables d'environnement :
-# VITE_API_URL=http://localhost:3000
 
 # Démarrage
 npm run dev
